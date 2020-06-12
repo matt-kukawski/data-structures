@@ -38,9 +38,30 @@ class SinglyLinkedList {
         this.length++;
         return true;
     }
+
+    pop() {
+        if (!this.head) return undefined;
+        let currentNode = this.head;
+        let newTail = currentNode;
+        while (currentNode.next) {
+            newTail = currentNode;
+            currentNode = currentNode.next;
+        }
+        this.tail = newTail;
+        this.tail.next = null;
+        this.length--;
+        if (this.length === 0) {
+            this.head = null;
+            this.tail = null;
+        }
+        return currentNode;
+    }
 }
 
 var list = new SinglyLinkedList()
 list.push("1st push");
 list.push("2nd push");
+list.push("3rd push");
+// list.pop();
+// list.pop();
 console.log('list:', list);
