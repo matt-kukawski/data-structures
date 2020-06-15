@@ -40,6 +40,7 @@ class SinglyLinkedList {
     }
 
     pop() {
+        console.log('popping');
         if (!this.head) return undefined;
         let currentNode = this.head;
         let newTail = currentNode;
@@ -56,12 +57,104 @@ class SinglyLinkedList {
         }
         return currentNode;
     }
+
+    shift(val) {
+        const newNode = new Node(val);
+        if (!this.head) {
+            this.push(newNode);
+        } else {
+            let currentHead = this.head;
+            newNode.next = currentHead;
+            this.head = newNode;
+        }
+        this.length++;
+        return true;
+    }
+
+    unshift(){
+        console.log('length: ', this.length);
+        if (this.length === 1) {
+            this.pop();
+        } else {
+            const currentHead = this.head;
+            this.head = currentHead.next;
+        }
+        this.length--;
+        return true;
+    }
+
+    get(idx) {
+        if (!this.head) return undefined;
+        if (idx >= this.length) return undefined;
+        let getCounter = 0;
+        let currentNode = this.head;
+        let nextNode = currentNode.next;
+        while (getCounter !== idx) {
+            currentNode = nextNode;
+            nextNode = currentNode.next;
+            getCounter++;
+        }
+        return currentNode;
+    }
+
+    set(idx, val) {
+        if (!this.head) return undefined;
+        if (idx >= this.length) return undefined;
+        let nodeRetrieved = this.get(idx);
+        nodeRetrieved.val = val;
+        return true;
+    }
+
+    insert(idx, val) {        
+        if (!this.head) {
+            this.push(val);
+            return true;
+        } 
+        if (idx >= this.length) return undefined;
+        let nodeCount = 0;
+        let newNode = new Node(val);
+        if (idx === 0) {
+            this.shift(newNode);
+            return true;
+        }
+        if (idx === this.length-1) {
+            this.push(newNode);
+            return true;
+        }
+        let prevNode = this.head;
+        let nextNode = prevNode.next;
+        while (nodeCount < idx) {
+            console.log('insert loop - ', nodeCount);
+            prevNode = nextNode;
+            nextNode = prevNode.next;
+            nodeCount++;
+        }
+        prevNode.next = newNode;
+        newNode.next = nextNode;
+        this.length++;
+        return true;
+    }
+
+    remove() {
+        
+    }
+
+    reverse() {
+
+    }
+
 }
 
 var list = new SinglyLinkedList()
-list.push("1st push");
-list.push("2nd push");
-list.push("3rd push");
+list.push("1st - push");
+list.push("2nd - push");
+list.push("3rd - push");
+list.shift("4th - shift");
+console.log('list:', list);
+// list.unshift();
+// console.log('list.get: ', list.get(8));
+// console.log('list.set:', list.set(5, 'new val'));
+list.insert(3, 'inserted');
 // list.pop();
 // list.pop();
 console.log('list:', list);
