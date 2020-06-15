@@ -162,8 +162,29 @@ class SinglyLinkedList {
 
     }
 
-    reverse() {
+    reverse(){
+        var node = this.head;
+        this.head = this.tail;
+        this.tail = node;
+        var next;
+        var prev = null;
+        for(var i = 0; i < this.length; i++){
+          next = node.next;
+          node.next = prev;
+          prev = node;
+          node = next;
+        }
+        return this;
+    }
 
+    print(){
+        var arr = [];
+        var current = this.head
+        while(current){
+            arr.push(current.val)
+            current = current.next
+        }
+        console.log(arr);
     }
 
 }
@@ -174,14 +195,14 @@ list.push("2nd - push");
 list.push("3rd - push");
 list.push("4th - push");
 // list.shift("4th - shift");
-console.log('list:', list);
+// console.log('list:', list);
 // list.unshift();
-
 // console.log('list.set:', list.set(5, 'new val'));
 // list.insert(3, 'inserted');
-console.log('list.remove: ', list.remove(2));
-console.log('list.get: ', list.get(1));
-console.log('list.get: ', list.get(2));
+// console.log('list.remove: ', list.remove(2));
+// console.log('list.get: ', list.get(1));
+// console.log('list.get: ', list.get(2));
 // list.pop();
-// list.pop();
-console.log('list:', list);
+list.print();
+list.reverse();
+list.print();
